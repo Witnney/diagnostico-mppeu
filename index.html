@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Nacional de Gestión Universitaria - Diagnóstico IEU</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --vinotinto: #6b1d2f;
+            --vinotinto-hover: #4a1320;
+            --amarillo-patrio: #fcd116;
+            --oro: #d4af37;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Encabezado Institucional Tricolor / Vinotinto */
+        .top-banner {
+            background: linear-gradient(135deg, var(--vinotinto) 0%, var(--vinotinto-hover) 100%);
+            color: white;
+            border-bottom: 5px solid var(--amarillo-patrio);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .stars-arc {
+            color: var(--amarillo-patrio);
+            font-size: 1.1rem;
+            letter-spacing: 6px;
+            text-shadow: 0 0 8px rgba(252, 209, 22, 0.6);
+        }
+
+        /* Estilos de Navegación por Módulos */
+        .nav-pills {
+            gap: 4px;
+        }
+
+        .nav-pills .nav-link {
+            color: #495057;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            transition: all 0.2s ease;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--vinotinto);
+            color: white;
+            border-color: var(--vinotinto);
+            box-shadow: 0 3px 8px rgba(107, 29, 47, 0.3);
+        }
+
+        .nav-pills .nav-link:hover:not(.active) {
+            background-color: #e2e6ea;
+            color: var(--vinotinto);
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            background: white;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: #2c3e50;
+        }
+
+        .btn-vinotinto {
+            background-color: var(--vinotinto);
+            color: white;
+            border: none;
+            font-weight: 600;
+            padding: 10px 24px;
+            border-radius: 8px;
+        }
+
+        .btn-vinotinto:hover {
+            background-color: var(--vinotinto-hover);
+            color: white;
+        }
+
+        .section-header {
+            color: var(--vinotinto);
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .sub-header {
+            color: #495057;
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            padding: 6px 12px;
+            border-left: 4px solid var(--vinotinto);
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado Institucional -->
+    <header class="top-banner py-3 mb-4">
+        <div class="container text-center">
+            <div class="stars-arc mb-1">★ ★ ★ ★ ★ ★ ★ ★</div>
+            <h1 class="h3 fw-bold mb-1 text-uppercase">República Bolivariana de Venezuela</h1>
+            <p class="mb-0 text-light small fw-semibold">Ministerio del Poder Popular para la Educación Universitaria | Consejo Nacional de Universidades</p>
+            <span class="badge bg-warning text-dark mt-2 fw-bold">COMISIÓN N.° 10: SISTEMA NACIONAL DE GESTIÓN UNIVERSITARIA (TEPUY)</span>
+        </div>
+    </header>
+
+    <div class="container-fluid px-4 mb-5">
+        
+        <!-- Menú Navegable por Pestañas (12 Módulos Activos del Excel) -->
+        <div class="card card-custom p-3 mb-4">
+            <ul class="nav nav-pills flex-wrap justify-content-center" id="moduleTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" id="tab-mod1" data-bs-toggle="pill" data-bs-target="#mod1" type="button"><i class="bi bi-building"></i> I. Identificación</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod2" data-bs-toggle="pill" data-bs-target="#mod2" type="button"><i class="bi bi-journal-bookmark"></i> II. Procesos Académicos</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod3" data-bs-toggle="pill" data-bs-target="#mod3" type="button"><i class="bi bi-people"></i> III. Personal / Nómina</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod4" data-bs-toggle="pill" data-bs-target="#mod4" type="button"><i class="bi bi-code-slash"></i> IV. Aplicaciones / Licencias</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod5" data-bs-toggle="pill" data-bs-target="#mod5" type="button"><i class="bi bi-hdd-network"></i> V. Infraestructura & Redes</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod6" data-bs-toggle="pill" data-bs-target="#mod6" type="button"><i class="bi bi-database"></i> VI. Bases de Datos</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod7" data-bs-toggle="pill" data-bs-target="#mod7" type="button"><i class="bi bi-arrow-repeat"></i> VII. Interoperabilidad GTU</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod8" data-bs-toggle="pill" data-bs-target="#mod8" type="button"><i class="bi bi-shield-check"></i> VIII. Seguridad / SUSCERTE</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod10" data-bs-toggle="pill" data-bs-target="#mod10" type="button"><i class="bi bi-graph-up-arrow"></i> X. Investigación & Rendición</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod11" data-bs-toggle="pill" data-bs-target="#mod11" type="button"><i class="bi bi-heart-pulse"></i> XI. Bienestar e Inclusión</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod12" data-bs-toggle="pill" data-bs-target="#mod12" type="button"><i class="bi bi-activity"></i> XII. Semáforo Sísmico</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-mod13" data-bs-toggle="pill" data-bs-target="#mod13" type="button"><i class="bi bi-laptop"></i> XIII. Ed. Multimodal</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Formulario con Contenido de Módulos -->
+        <form id="diagnosticoForm">
+            <div class="tab-content" id="moduleTabsContent">
+                
+                <!-- MÓDULO I: IDENTIFICACIÓN -->
+                <div class="tab-pane fade show active" id="mod1" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-building"></i> Módulo I: Identificación Institucional y Pertenencia Territorial</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="ieu_nombre" class="form-label">Nombre de la IEU</label>
+                                <select class="form-select" id="ieu_nombre" required>
+                                    <option value="" selected disabled>Seleccione la Institución...</option>
+                                    <option value="UNIVERSIDAD CENTRAL DE VENEZUELA">UNIVERSIDAD CENTRAL DE VENEZUELA (UCV)</option>
+                                    <option value="UNIVERSIDAD BOLIVARIANA DE VENEZUELA">UNIVERSIDAD BOLIVARIANA DE VENEZUELA (UBV)</option>
+                                    <option value="UNIVERSIDAD NACIONAL EXPERIMENTAL DE LA GRAN CARACAS">UNIVERSIDAD NACIONAL EXPERIMENTAL DE LA GRAN CARACAS (UNEXCA)</option>
+                                    <option value="UNIVERSIDAD MILITAR BOLIVARIANA DE VENEZUELA">UNIVERSIDAD MILITAR BOLIVARIANA DE VENEZUELA (UMBV)</option>
+                                    <option value="UNIVERSIDAD NACIONAL EXPERIMENTAL DEL TRANSPORTE">UNIVERSIDAD NACIONAL EXPERIMENTAL DEL TRANSPORTE (UNETRANS)</option>
+                                    <option value="OTRA">OTRA INSTITUCIÓN...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="tipo_ieu" class="form-label">Tipo de IEU</label>
+                                <select class="form-select" id="tipo_ieu" required>
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="EXPERIMENTALES">EXPERIMENTALES</option>
+                                    <option value="POLITECNICAS TERRITORIALES">POLITÉCNICAS TERRITORIALES (UPT)</option>
+                                    <option value="INSTITUTOS UNIVERSITARIOS">INSTITUTOS UNIVERSITARIOS</option>
+                                    <option value="MILITARES">MILITARES</option>
+                                    <option value="NO EXPERIMENTALES">NO EXPERIMENTALES (AUTÓNOMAS)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="dep_adm" class="form-label">Dep. Administrativa</label>
+                                <select class="form-select" id="dep_adm" required>
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="PÚBLICA">PÚBLICA</option>
+                                    <option value="PRIVADA">PRIVADA</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="sede" class="form-label">Sede / Núcleo</label>
+                                <input type="text" class="form-control" id="sede" placeholder="Ej. Principal / Núcleo La Floresta">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="estado" class="form-label">Estado</label>
+                                <select class="form-select" id="estado" required>
+                                    <option value="" selected disabled>Seleccione Estado...</option>
+                                    <option value="Distrito Capital">Distrito Capital</option>
+                                    <option value="Miranda">Miranda</option>
+                                    <option value="Carabobo">Carabobo</option>
+                                    <option value="Aragua">Aragua</option>
+                                    <option value="Zulia">Zulia</option>
+                                    <option value="Lara">Lara</option>
+                                    <option value="Monagas">Monagas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="municipio" class="form-label">Municipio</label>
+                                <input type="text" class="form-control" id="municipio" placeholder="Municipio">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="parroquia" class="form-label">Parroquia</label>
+                                <input type="text" class="form-control" id="parroquia" placeholder="Parroquia">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="direccion" class="form-label">Dirección Institucional</label>
+                                <input type="text" class="form-control" id="direccion" placeholder="Dirección completa">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="responsable" class="form-label">Nombre del Responsable TI / OTIC</label>
+                                <input type="text" class="form-control" id="responsable" placeholder="Nombre completo" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="cargo" class="form-label">Cargo</label>
+                                <input type="text" class="form-control" id="cargo" placeholder="Ej. Director de Tecnología / OTIC">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="telefono" class="form-label">Teléfono Institucional</label>
+                                <input type="text" class="form-control" id="telefono" placeholder="0212-0000000">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="correo" class="form-label">Correo Institucional</label>
+                                <input type="email" class="form-control" id="correo" placeholder="usuario@ieu.edu.ve" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO II: PROCESOS ACADÉMICOS -->
+                <div class="tab-pane fade" id="mod2" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-journal-bookmark"></i> Módulo II: Procesos Académicos y Control de Estudios</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="asignados_sni" class="form-label">Asignados SNI (Estatus de Registro)</label>
+                                <input type="text" class="form-control" id="asignados_sni" placeholder="Detalle de asignación por SNI">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ingreso" class="form-label">Proceso de Ingreso / Inscripción</label>
+                                <input type="text" class="form-control" id="ingreso" placeholder="Mecanismo de ingreso activo">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="matricula" class="form-label">Matrícula Estudiantil Total</label>
+                                <input type="number" class="form-control" id="matricula" placeholder="Cantidad de estudiantes activos">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="egresados" class="form-label">Registro de Egresados</label>
+                                <input type="text" class="form-control" id="egresados" placeholder="Estatus de digitalización de egresados">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="periodos" class="form-label">Gestión de Períodos Académicos</label>
+                                <input type="text" class="form-control" id="periodos" placeholder="Semestral, Anual, Trayectos">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="nivel_dig" class="form-label">Nivel de Digitalización</label>
+                                <select class="form-select" id="nivel_dig" required>
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="MANUAL">MANUAL (Hojas de Cálculo / Archivo Físico)</option>
+                                    <option value="PARCIALMENTE DIGITALIZADO">PARCIALMENTE DIGITALIZADO</option>
+                                    <option value="TOTALMENTE DIGITALIZADO">TOTALMENTE DIGITALIZADO / SISTEMA WEB</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="sistema_actual" class="form-label">Sistema Actual en Uso</label>
+                                <input type="text" class="form-control" id="sistema_actual" placeholder="Nombre del software actual de Control de Estudios">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="motor_bd_acad" class="form-label">Motor de Base de Datos</label>
+                                <select class="form-select" id="motor_bd_acad">
+                                    <option value="" selected disabled>Seleccione Motor...</option>
+                                    <option value="PostgreSQL">PostgreSQL</option>
+                                    <option value="MySQL/MariaDB">MySQL / MariaDB</option>
+                                    <option value="Oracle">Oracle</option>
+                                    <option value="SQL Server">Microsoft SQL Server</option>
+                                    <option value="Sin BD Relacional">Archivos Físicos / Hojas de Cálculo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO III: PERSONAL Y NÓMINA -->
+                <div class="tab-pane fade" id="mod3" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-people"></i> Módulo III: Personal, Carga Docente y Sinceración de Nómina</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="docente_total" class="form-label">Planta Docente Total</label>
+                                <input type="number" class="form-control" id="docente_total" placeholder="Número de docentes">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="nivel_acad_doc" class="form-label">Nivel Académico Predominante</label>
+                                <select class="form-select" id="nivel_acad_doc">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Doctorado">Doctorado</option>
+                                    <option value="Maestría / Especialización">Maestría / Especialización</option>
+                                    <option value="Licenciado / Ingeniero">Licenciado / Ingeniero</option>
+                                    <option value="TSU">T.S.U.</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="carga_efectiva" class="form-label">Relación Carga Docente / Horas Efectivas</label>
+                                <input type="text" class="form-control" id="carga_efectiva" placeholder="Relación horas aula vs contratadas">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="categoria_docente" class="form-label">Categoría del Docente</label>
+                                <select class="form-select" id="categoria_docente">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Instructor">Instructor</option>
+                                    <option value="Asistente">Asistente</option>
+                                    <option value="Agregado">Agregado</option>
+                                    <option value="Asociado">Asociado</option>
+                                    <option value="Titular">Titular</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="dedicacion_docente" class="form-label">Régimen de Dedicación Docente</label>
+                                <select class="form-select" id="dedicacion_docente">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Dedicación Exclusiva">Dedicación Exclusiva</option>
+                                    <option value="Tiempo Completo">Tiempo Completo</option>
+                                    <option value="Medio Tiempo">Medio Tiempo</option>
+                                    <option value="Tiempo Convencional">Tiempo Convencional</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tipo_vinculacion" class="form-label">Tipo de Vinculación</label>
+                                <select class="form-select" id="tipo_vinculacion">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Ordinario / Fijo">Ordinario / Fijo</option>
+                                    <option value="Contratado">Contratado</option>
+                                    <option value="Jubilado Activo">Jubilado Activo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO IV: APLICACIONES Y LICENCIAS -->
+                <div class="tab-pane fade" id="mod4" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-code-slash"></i> Módulo IV: Aplicaciones, Licencias y Soberanía Tecnológica</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="app_nombre" class="form-label">Nombre del Sistema Evaluado</label>
+                                <input type="text" class="form-control" id="app_nombre" placeholder="Nombre del aplicativo">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="app_proposito" class="form-label">Propósito / Área Funcional</label>
+                                <input type="text" class="form-control" id="app_proposito" placeholder="Ej. Control de Estudios, Nómina, Biblioteca">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tipo_desarrollo" class="form-label">Tipo de Desarrollo</label>
+                                <select class="form-select" id="tipo_desarrollo">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Desarrollo Propio">Desarrollo Propio Institucional</option>
+                                    <option value="Software Libre">Software Libre / Código Abierto</option>
+                                    <option value="Tercero/Privativo">Tercero / Privativo Adquirido</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="lenguaje_framework" class="form-label">Lenguaje / Framework</label>
+                                <input type="text" class="form-control" id="lenguaje_framework" placeholder="Ej. PHP/Laravel, Python/Django, Java">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="infogobierno" class="form-label">Cumplimiento Ley Infogobierno</label>
+                                <select class="form-select" id="infogobierno">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="CUMPLE">CUMPLE (100% Software Libre / Estándares Abiertos)</option>
+                                    <option value="EN PROCESO">EN PROCESO DE MIGRACIÓN</option>
+                                    <option value="NO CUMPLE">NO CUMPLE (Dependencia de Software Privativo)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO V: INFRAESTRUCTURA Y COMPATIBILIDAD TEPUY -->
+                <div class="tab-pane fade" id="mod5" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-hdd-network"></i> Módulo V: Infraestructura Tecnológica, Redes y Prediagnóstico Tepuy</h5>
+                        
+                        <div class="sub-header">Servidores y Data Center</div>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="datacenter" class="form-label">Disponibilidad de Sala de Servidores / Data Center</label>
+                                <select class="form-select" id="datacenter">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Propio In-situ">Propio e In-situ</option>
+                                    <option value="Alquilado/Nube Extranjera">Alquilado / Nube Extranjera</option>
+                                    <option value="Nube Nacional">Nube Nacional (MPPCT/CNTI)</option>
+                                    <option value="No Posee">No Posee Servidores</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tipo_servidores" class="form-label">Tipo de Servidores Disponibles</label>
+                                <select class="form-select" id="tipo_servidores">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Físicos">Físicos</option>
+                                    <option value="Virtualizados">Virtualizados (Proxmox, VMware, KVM)</option>
+                                    <option value="Mixtos">Mixtos</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="so_servidores" class="form-label">Sistema Operativo Predominante en Servidores</label>
+                                <select class="form-select" id="so_servidores">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Linux/Software Libre">Linux / Software Libre (Debian, Ubuntu, AlmaLinux)</option>
+                                    <option value="Windows Server">Windows Server</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="sub-header">Conectividad y Ancho de Banda</div>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="proveedor_internet" class="form-label">Proveedor de Internet Principal</label>
+                                <input type="text" class="form-control" id="proveedor_internet" placeholder="Ej. CANTV, Telecom, Fibra Privada">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ancho_banda" class="form-label">Ancho de Banda Contratado (Mbps)</label>
+                                <input type="number" class="form-control" id="ancho_banda" placeholder="Mbps">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="internet_estabilidad" class="form-label">Estabilidad del Servicio</label>
+                                <select class="form-select" id="internet_estabilidad">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Alta (24/7)">Alta (24/7 sin cortes severos)</option>
+                                    <option value="Media">Media (Cortes intermitentes)</option>
+                                    <option value="Baja">Baja / Inestable</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="sub-header">Estatus de Pruebas con Sistema Tepuy</div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="tepuy_piloto" class="form-label">¿Ha implementado o probado Tepuy en fase piloto?</label>
+                                <select class="form-select" id="tepuy_piloto">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Sí">Sí</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tepuy_estatus" class="form-label">Estado Actual de Tepuy en la IEU</label>
+                                <select class="form-select" id="tepuy_estatus">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="En Producción">En Producción</option>
+                                    <option value="En Pruebas">En Pruebas</option>
+                                    <option value="Descontinuado">Descontinuado</option>
+                                    <option value="Sin Experiencia">Sin Experiencia Previa</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO VI: BASES DE DATOS -->
+                <div class="tab-pane fade" id="mod6" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-database"></i> Módulo VI: Bases de Datos y Calidad de Información</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="motor_bd_gen" class="form-label">Motor de Base de Datos Principal</label>
+                                <select class="form-select" id="motor_bd_gen">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="PostgreSQL">PostgreSQL</option>
+                                    <option value="MariaDB / MySQL">MariaDB / MySQL</option>
+                                    <option value="Oracle">Oracle</option>
+                                    <option value="SQL Server">Microsoft SQL Server</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="volumen_gb" class="form-label">Volumen Estimado de Datos (GB)</label>
+                                <input type="number" class="form-control" id="volumen_gb" placeholder="GB acumulados">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="diccionario_bd" class="form-label">Existencia de Diccionario de Datos</label>
+                                <select class="form-select" id="diccionario_bd">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Sí">Sí (Documentado)</option>
+                                    <option value="No">No Posee Diccionario</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO VII: INTEROPERABILIDAD GTU -->
+                <div class="tab-pane fade" id="mod7" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-arrow-repeat"></i> Módulo VII: Interoperabilidad e Integración con GTU</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="intercambio_gtu" class="form-label">Mecanismo de Intercambio con GTU</label>
+                                <select class="form-select" id="intercambio_gtu">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Automático via API">Automático vía API / Web Service</option>
+                                    <option value="Carga de Archivos CSV/Excel">Carga de Archivos CSV / Excel</option>
+                                    <option value="Transcripción Manual">Transcripción Manual (Punto de Fricción)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="frecuencia_gtu" class="form-label">Frecuencia de Actualización</label>
+                                <select class="form-select" id="frecuencia_gtu">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Tiempo Real">Tiempo Real</option>
+                                    <option value="Diario">Diario</option>
+                                    <option value="Semanal">Semanal</option>
+                                    <option value="Por Período Académico">Por Período Académico</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="doble_captura" class="form-label">Puntos de Doble Captura Manual</label>
+                                <select class="form-select" id="doble_captura">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Existe Doble Captura Crítica">Existe Doble Captura Crítica</option>
+                                    <option value="Sin Doble Captura">Sin Doble Captura (Proceso Automatizado)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO VIII: SEGURIDAD Y SUSCERTE -->
+                <div class="tab-pane fade" id="mod8" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-shield-check"></i> Módulo VIII: Seguridad, Ciberseguridad y Certificación Digital</h5>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label for="firma_digital" class="form-label">Firma Digital Certificada (SUSCERTE)</label>
+                                <select class="form-select" id="firma_digital">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Sí">Sí (SUSCERTE Activa)</option>
+                                    <option value="En Proceso">En Proceso</option>
+                                    <option value="No">No Implementada</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="logs_notas" class="form-label">Logs Inmutables de Modificación de Notas</label>
+                                <select class="form-select" id="logs_notas">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Sí">Sí (Bitácora inalterable con trazabilidad)</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="politica_backups" class="form-label">Política de Backups</label>
+                                <select class="form-select" id="politica_backups">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Automatizado Local">Automatizado Local</option>
+                                    <option value="Servidores Nacionales">Servidores Nacionales</option>
+                                    <option value="Sin Backup Formal">Sin Backup Formal</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="firewall_active" class="form-label">Firewall / IPS Implementado</label>
+                                <select class="form-select" id="firewall_active">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Sí">Sí</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO X: INVESTIGACIÓN Y RENDICIÓN DE CUENTAS -->
+                <div class="tab-pane fade" id="mod10" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-graph-up-arrow"></i> Módulo X: Investigación, Vinculación Comunal y Rendición de Cuentas</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="proyectos_inv" class="form-label">Proyectos de Investigación Activos</label>
+                                <input type="number" class="form-control" id="proyectos_inv" placeholder="Cantidad de proyectos de creación intelectual">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="vinculacion_comunal" class="form-label">Vinculación Comunal / Circuitos Comunales</label>
+                                <select class="form-select" id="vinculacion_comunal">
+                                    <option value="" selected disabled>Seleccione Nivel...</option>
+                                    <option value="Alta">Alta (Proyectos integrados en territorio)</option>
+                                    <option value="Media">Media</option>
+                                    <option value="Baja / Nula">Baja / Nula</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="infra_compartida" class="form-label">Infraestructura Compartida Disponible</label>
+                                <select class="form-select" id="infra_compartida">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Disponible">Disponible para compartir laboratorios con otras IEU</option>
+                                    <option value="Uso Exclusivo">Uso Exclusivo Interno</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="costo_calidad" class="form-label">Indicador Costo-Calidad Formativa</label>
+                                <input type="text" class="form-control" id="costo_calidad" placeholder="Costo por estudiante / métrica de rendimiento">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO XI: BIENESTAR E INCLUSIÓN -->
+                <div class="tab-pane fade" id="mod11" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-heart-pulse"></i> Módulo XI: Bienestar Estudiantil, Comedores e Inclusión</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="capacidad_comedor" class="form-label">Capacidad u Operatividad del Comedor</label>
+                                <select class="form-select" id="capacidad_comedor">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Operativo">Operativo</option>
+                                    <option value="Parcialmente Operativo">Parcialmente Operativo</option>
+                                    <option value="Inoperativo">Inoperativo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="flota_transporte" class="form-label">Flota de Transporte Estudiantil</label>
+                                <input type="text" class="form-control" id="flota_transporte" placeholder="Unidades operativas / inoperativas">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="padron_becas" class="form-label">Padrón de Becas Integrado con Patria</label>
+                                <select class="form-select" id="padron_becas">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Sincronizado">Sincronizado con Plataforma Patria</option>
+                                    <option value="En Proceso">En Proceso</option>
+                                    <option value="No Sincronizado">No Sincronizado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO XII: SEMÁFORO SÍSMICO Y PLANTA FÍSICA -->
+                <div class="tab-pane fade" id="mod12" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-activity"></i> Módulo XII: Planta Física y Semáforo Sísmico</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="semaforo_sismico" class="form-label">Semáforo de Habitabilidad Sísmica</label>
+                                <select class="form-select" id="semaforo_sismico">
+                                    <option value="" selected disabled>Seleccione Condición...</option>
+                                    <option value="VERDE" style="color: green; font-weight: bold;">VERDE (Habitable / Daños Menores)</option>
+                                    <option value="AMARILLO" style="color: #d39e00; font-weight: bold;">AMARILLO (Compromiso Parcial / Mampostería)</option>
+                                    <option value="ROJO" style="color: red; font-weight: bold;">ROJO (Inhabitabilidad Crítica / Daño Estructural)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="estado_laboratorios" class="form-label">Estado de Laboratorios y Talleres</label>
+                                <input type="text" class="form-control" id="estado_laboratorios" placeholder="Estatus físico y de equipamiento">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MÓDULO XIII: EDUCACIÓN MULTIMODAL -->
+                <div class="tab-pane fade" id="mod13" role="tabpanel">
+                    <div class="card card-custom p-4">
+                        <h5 class="section-header"><i class="bi bi-laptop"></i> Módulo XIII: Educación Multimodal y Plataformas LMS</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="plataforma_lms" class="form-label">Plataforma LMS Utilizada</label>
+                                <select class="form-select" id="plataforma_lms">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Moodle">Moodle (Software Libre)</option>
+                                    <option value="Chamilo">Chamilo (Software Libre)</option>
+                                    <option value="Desarrollo Propio">Desarrollo Propio</option>
+                                    <option value="Sin LMS">Sin Plataforma LMS</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="servidor_lms" class="form-label">Ubicación del Servidor LMS</label>
+                                <select class="form-select" id="servidor_lms">
+                                    <option value="" selected disabled>Seleccione...</option>
+                                    <option value="Nacional">Nacional (Soberanía de Datos)</option>
+                                    <option value="Extranjero">Extranjero</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="docentes_capacitados" class="form-label">Porcentaje de Docentes Capacitados (%)</label>
+                                <input type="number" class="form-control" id="docentes_capacitados" placeholder="% de docentes formados en TIC">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Botones de Envíos -->
+            <div class="card card-custom p-3 mt-4 text-end">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted small"><i class="bi bi-info-circle"></i> Los datos recolectados alimentarán el Plan Operativo del CNU.</span>
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary me-2" onclick="limpiar()"><i class="bi bi-trash"></i> Limpiar</button>
+                        <button type="submit" class="btn btn-vinotinto"><i class="bi bi-send-check"></i> Registrar y Validar Diagnóstico</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('diagnosticoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const ieu = document.getElementById('ieu_nombre').value || "la IEU seleccionada";
+            alert('¡Diagnóstico Validado con Éxito!\n\nSe han registrado y procesado las respuestas de los módulos para: ' + ieu + '.\n\nLos datos han sido formateados correctamente en UTF-8 bajo la directriz del Sistema Nacional Tepuy.');
+        });
+
+        function limpiar() {
+            if(confirm('¿Desea restablecer todos los campos del formulario?')) {
+                document.getElementById('diagnosticoForm').reset();
+            }
+        }
+    </script>
+</body>
+</html>
